@@ -14,7 +14,7 @@ class CampaignIndex extends Component {
     const items = this.props.campaigns.map(address => {
       return {
         header: address,
-        description: <a>View Campaign</a>,
+        description: <a>Ver Campanha</a>,
         fluid: true
       };
     });
@@ -27,12 +27,13 @@ class CampaignIndex extends Component {
       <Layout>
         <div>
           <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"></link>
-          <h3>Open Campaigns</h3>
-          {this.renderCampaigns()}
+          <h3>Campanhas Abertas</h3>
           <Button
-            content="Create Campaign"
+            floated="right"
+            content="Criar Campanha"
             icon="add circle"
             primary></Button>
+            {this.renderCampaigns()}
         </div>
       </Layout>
     );
