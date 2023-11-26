@@ -1,6 +1,6 @@
 const assert = require('assert');
 const ganache = require('ganache');
-const { Web3 } = require('web3');
+const Web3 = require('web3');
 const web3 = new Web3(ganache.provider());
 const compiledFactory = require('../ethereum/build/CampaignFactory.json');
 const compiledCampaign = require('../ethereum/build/Campaign.json');
@@ -58,7 +58,7 @@ describe('Campaigns', () => {
     await campaign.methods
       .createRequest('Buy batteries', '100', accounts[1])
       .send({ from: accounts[0], gas: '1000000' });
-    
+
     const request = await campaign.methods.requests(0).call();
     assert.equal('Buy batteries', request.description);
   });
@@ -68,14 +68,14 @@ describe('Campaigns', () => {
     await campaign.methods
       .createRequest('A', web3.utils.toWei('5', 'ether'), accounts[1])
       .send({ from: accounts[0], gas: '1000000' });
-    
+
     await campaign.methods.approveRequest(0).send({ from: accounts[0], gas: '1000000' });
     await campaign.methods.finalizeRequest(0).send({ from: accounts[0], gas: '1000000' });
-    
+
     let balance = await web3.eth.getBalance(accounts[1]);
     balance = web3.utils.fromWei(balance, 'ether');
     balance = parseFloat(balance);
-    
+
     assert(balance > 104);
   });
 });
